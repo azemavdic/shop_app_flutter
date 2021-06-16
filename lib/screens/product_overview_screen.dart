@@ -41,7 +41,7 @@ class ProductOverviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Početna'),
+        title: Text('Pocetna'),
       ),
       body: GridView.builder(
         padding: EdgeInsets.all(10),
@@ -56,6 +56,7 @@ class ProductOverviewScreen extends StatelessWidget {
           imageUrl: loadedProducts[index].imageUrl,
           title: loadedProducts[index].title,
           id: loadedProducts[index].id,
+          price: loadedProducts[index].price,
         ),
       ),
     );
