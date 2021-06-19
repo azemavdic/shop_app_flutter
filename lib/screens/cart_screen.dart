@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/cart.dart';
+import 'package:shop_app/widgets/cart_item.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<Cart>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Korpa'),
@@ -29,16 +31,11 @@ class CartScreen extends StatelessWidget {
                   ),
                   Spacer(),
                   Chip(
-                    deleteIcon: Icon(
-                      Icons.delete,
-                      color: Colors.white,
-                    ),
-                    onDeleted: () {},
                     backgroundColor: Theme.of(context).primaryColor,
                     label: Consumer<Cart>(
                       builder: (_, cart, __) {
                         return Text(
-                          '${cart.totalAmount} KM',
+                          '${cart.totalAmount.toStringAsFixed(2)} KM',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -55,6 +52,19 @@ class CartScreen extends StatelessWidget {
               ),
             ),
           ),
+          Expanded(
+              child: ListView.builder(
+            itemCount: cart.items.length,
+            itemBuilder: (context, index) {
+              return CartItem(
+                id: cart.items.values.toList()[index].id,
+                price: cart.items.values.toList()[index].price,
+                title: cart.items.values.toList()[index].title,
+                quantity: cart.items.values.toList()[index].quantity,
+                productId: cart.items.keys.toList()[index],
+              );
+            },
+          )),
         ],
       ),
     );
