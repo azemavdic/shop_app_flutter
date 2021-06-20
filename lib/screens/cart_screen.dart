@@ -46,7 +46,7 @@ class CartScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: Text('Kupi'),
+                    child: Text('Naruci'),
                   )
                 ],
               ),
