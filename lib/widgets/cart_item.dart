@@ -20,6 +20,7 @@ class CartItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context, listen: false);
+
     return Dismissible(
       onDismissed: (direction) {
         cart.removeItem(productId);
