@@ -36,6 +36,23 @@ class ProductItem extends StatelessWidget {
             color: Theme.of(context).accentColor,
             onPressed: () {
               cart.addItems(product.id, product.price, product.title);
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Dodali ste u korpu',
+                  ),
+                  duration: Duration(seconds: 2),
+                  backgroundColor: Theme.of(context).accentColor,
+                  action: SnackBarAction(
+                    label: 'Odbaci',
+                    onPressed: () {
+                      cart.removeSingleItem(product.id);
+                    },
+                    textColor: Colors.white,
+                  ),
+                ),
+              );
             },
           ),
         ),
