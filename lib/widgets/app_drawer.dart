@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/orders_screen.dart';
+import 'package:shop_app/screens/user_products_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -7,15 +8,9 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          Container(
-            height: 100,
-            width: double.infinity,
-            color: Theme.of(context).primaryColor,
-            child: Center(
-                child: Text(
-              'Meni',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            )),
+          AppBar(
+            title: Text('Meni'),
+            automaticallyImplyLeading: false,
           ),
           SizedBox(height: 10),
           ListTile(
@@ -27,10 +22,19 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.payment),
-            title: Text('Narudzba'),
+            title: Text('Narudzbe'),
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(OrdersScreen.routeName);
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.dashboard_customize),
+            title: Text('Moji proizvodi'),
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacementNamed(UserProductsScreen.routeName);
             },
           ),
         ],
