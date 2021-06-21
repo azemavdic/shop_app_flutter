@@ -22,6 +22,30 @@ class CartItem extends StatelessWidget {
     final cart = Provider.of<Cart>(context, listen: false);
 
     return Dismissible(
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Brisanje artikla'),
+            content:
+                Text('Jeste li sigurni da želite odbaciti artikal iz korpe?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                child: Text('DA'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: Text('NE'),
+              ),
+            ],
+          ),
+        );
+      },
       onDismissed: (direction) {
         cart.removeItem(productId);
       },
