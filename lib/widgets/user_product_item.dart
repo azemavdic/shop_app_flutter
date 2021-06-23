@@ -20,7 +20,7 @@ class UserProductItem extends StatelessWidget {
             backgroundImage: NetworkImage(imageUrl),
           ),
           trailing: Container(
-            width: 80,
+            width: 100,
             child: Row(
               children: [
                 IconButton(
