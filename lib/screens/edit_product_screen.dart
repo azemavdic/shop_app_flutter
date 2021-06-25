@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/providers/product.dart';
+import 'package:shop_app/providers/products.dart';
 
 class EditProductScreen extends StatefulWidget {
   static const routeName = '/edit-product';
@@ -45,7 +47,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _saveForm() {
+    final isValid = _form.currentState.validate();
+    if (!isValid) {
+      return;
+    }
     _form.currentState.save();
+    Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -63,10 +71,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
+          autovalidateMode: AutovalidateMode.always,
           key: _form,
           child: ListView(
             children: [
               TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Upišite naziv';
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                   labelText: 'Naziv',
                 ),
@@ -85,6 +100,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 },
               ),
               TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Upišite cijenu';
+                  }
+                  if (double.tryParse(value) == null) {
+                    return 'Upisite ispravnu cijenu.';
+                  }
+                  if (double.parse(value) <= 0) {
+                    return 'Cijena mora biti veca od 0.';
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                   labelText: 'Cijena',
                 ),
@@ -104,6 +131,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 },
               ),
               TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Upišite opis.';
+                  }
+                  if (value.length < 10) {
+                    return 'Upisite najmanje 10 karaktera.';
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                   labelText: 'Opis',
                 ),
@@ -147,6 +183,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   ),
                   Expanded(
                     child: TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Upišite URL slike.';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
                         labelText: 'URL slike',
                       ),
