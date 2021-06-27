@@ -4,8 +4,29 @@ import 'package:shop_app/widgets/app_drawer.dart';
 import 'package:shop_app/widgets/order_item.dart';
 import 'package:shop_app/providers/orders.dart';
 
-class OrdersScreen extends StatelessWidget {
+class OrdersScreen extends StatefulWidget {
   static const routeName = '/orders';
+
+  @override
+  _OrdersScreenState createState() => _OrdersScreenState();
+}
+
+class _OrdersScreenState extends State<OrdersScreen> {
+  bool _isInit = true;
+  bool _isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_isInit) {
+      _isLoading = true;
+      Provider.of<Orders>(context).fetchOrders().then((value) {
+        _isLoading = false;
+      });
+    }
+    _isInit = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     final ordersData = Provider.of<Orders>(context);
@@ -15,14 +36,16 @@ class OrdersScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Narudzbe'),
       ),
-      body: ListView.builder(
-        itemCount: ordersData.orders.length,
-        itemBuilder: (context, index) {
-          return OrderItem(
-            order: ordersData.orders[index],
-          );
-        },
-      ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: ordersData.orders.length,
+              itemBuilder: (context, index) {
+                return OrderItem(
+                  order: ordersData.orders[index],
+                );
+              },
+            ),
     );
   }
 }
