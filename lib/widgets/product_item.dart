@@ -32,17 +32,17 @@ class ProductItem extends StatelessWidget {
             onPressed: product.toogleFavorite,
           ),
           trailing: IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart),
             color: Theme.of(context).accentColor,
             onPressed: () {
               cart.addItems(product.id, product.price, product.title);
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(
+                  content: const Text(
                     'Dodali ste u korpu',
                   ),
-                  duration: Duration(seconds: 2),
+                  duration: const Duration(seconds: 2),
                   backgroundColor: Theme.of(context).accentColor,
                   action: SnackBarAction(
                     label: 'Odbaci',

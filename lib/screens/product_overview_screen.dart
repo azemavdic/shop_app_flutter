@@ -7,8 +7,8 @@ import 'package:shop_app/widgets/badge.dart';
 import 'package:shop_app/widgets/products_grid.dart';
 
 enum FilterOptions {
-  All,
-  Favorite,
+  all,
+  favorite,
 }
 
 class ProductOverviewScreen extends StatefulWidget {
@@ -24,13 +24,13 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
     return Scaffold(
       drawer: AppDrawer(),
       appBar: AppBar(
-        title: Text('Pocetna'),
+        title: const Text('Pocetna'),
         actions: [
           PopupMenuButton(
-            icon: Icon(Icons.more_vert),
+            icon: const Icon(Icons.more_vert),
             onSelected: (FilterOptions value) {
               setState(() {
-                if (value == FilterOptions.Favorite) {
+                if (value == FilterOptions.favorite) {
                   _showOnlyFavorites = true;
                 } else {
                   _showOnlyFavorites = false;
@@ -38,25 +38,25 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
               });
             },
             itemBuilder: (context) => [
-              PopupMenuItem(
+              const PopupMenuItem(
+                value: FilterOptions.favorite,
                 child: Text('Favoriti'),
-                value: FilterOptions.Favorite,
               ),
-              PopupMenuItem(
+              const PopupMenuItem(
+                value: FilterOptions.all,
                 child: Text('Svi'),
-                value: FilterOptions.All,
               ),
             ],
           ),
           Consumer<Cart>(
             builder: (_, cart, ch) {
               return Badge(
-                child: ch,
                 value: cart.itemCount.toString(),
+                child: ch,
               );
             },
             child: IconButton(
-              icon: Icon(Icons.shopping_cart_sharp),
+              icon: const Icon(Icons.shopping_cart_sharp),
               onPressed: () {
                 Navigator.of(context).pushNamed(CartScreen.routeName);
               },

@@ -14,32 +14,32 @@ class CartScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Korpa'),
+        title: const Text('Korpa'),
       ),
       body: Column(
         children: [
           Card(
-            margin: EdgeInsets.all(15),
+            margin: const EdgeInsets.all(15),
             elevation: 4,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'UKUPNO:',
                     style: TextStyle(
                       fontSize: 20,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Chip(
                     backgroundColor: Theme.of(context).primaryColor,
                     label: Consumer<Cart>(
                       builder: (_, cart, __) {
                         return Text(
                           '${cart.totalAmount.toStringAsFixed(2)} KM',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                           ),
@@ -56,7 +56,7 @@ class CartScreen extends StatelessWidget {
                       cart.clear();
                       Navigator.of(context).pushNamed(OrdersScreen.routeName);
                     },
-                    child: Text('Naruci'),
+                    child: const Text('Naruci'),
                   )
                 ],
               ),

@@ -96,17 +96,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
       Provider.of<Products>(context, listen: false)
           .addProduct(_editedProduct)
           .catchError((error) {
-        return showDialog<Null>(
+        return showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Greška.'),
-            content: Text('Nesto je poslo u krivu.'),
+            title: const Text('Greška.'),
+            content: const Text('Nesto je poslo u krivu.'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           ),
@@ -124,16 +124,16 @@ class _EditProductScreenState extends State<EditProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edituj proizvod'),
+        title: const Text('Edituj proizvod'),
         actions: [
           IconButton(
-            icon: Icon(Icons.save),
+            icon: const Icon(Icons.save),
             onPressed: _saveForm,
           )
         ],
       ),
       body: _isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Padding(
@@ -151,7 +151,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Naziv',
                       ),
                       textInputAction: TextInputAction.next,
@@ -183,7 +183,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Cijena',
                       ),
                       textInputAction: TextInputAction.next,
@@ -213,7 +213,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Opis',
                       ),
                       maxLines: 3,
@@ -239,15 +239,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         Container(
                           width: 100,
                           height: 100,
-                          margin: EdgeInsets.only(top: 8, right: 10),
+                          margin: const EdgeInsets.only(top: 8, right: 10),
                           decoration: BoxDecoration(
                             border: Border.all(
-                              width: 1,
                               color: Colors.grey,
                             ),
                           ),
                           child: _imageUrlController.text.isEmpty
-                              ? Text('Upisi url slike')
+                              ? const Text('Upisi url slike')
                               : FittedBox(
                                   child: Image.network(
                                     _imageUrlController.text,
@@ -263,7 +262,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               }
                               return null;
                             },
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               labelText: 'URL slike',
                             ),
                             keyboardType: TextInputType.url,

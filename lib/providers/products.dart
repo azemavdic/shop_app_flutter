@@ -5,7 +5,7 @@ import 'package:shop_app/providers/product.dart';
 import 'package:http/http.dart' as http;
 
 class Products with ChangeNotifier {
-  List<Product> _items = [
+  final List<Product> _items = [
     Product(
       id: 'p1',
       title: 'Red Shirt',
@@ -80,7 +80,7 @@ class Products with ChangeNotifier {
     )
         .then((response) {
       final newProduct = Product(
-        id: json.decode(response.body)['name'],
+        id: json.decode(response.body)['name'].toString(),
         title: product.title,
         imageUrl: product.imageUrl,
         description: product.description,

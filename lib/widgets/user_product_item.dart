@@ -24,7 +24,7 @@ class UserProductItem extends StatelessWidget {
           leading: CircleAvatar(
             backgroundImage: NetworkImage(imageUrl),
           ),
-          trailing: Container(
+          trailing: SizedBox(
             width: 100,
             child: Row(
               children: [
@@ -33,7 +33,7 @@ class UserProductItem extends StatelessWidget {
                     Navigator.of(context)
                         .pushNamed(EditProductScreen.routeName, arguments: id);
                   },
-                  icon: Icon(Icons.edit),
+                  icon: const Icon(Icons.edit),
                 ),
                 IconButton(
                   onPressed: () {
@@ -48,7 +48,7 @@ class UserProductItem extends StatelessWidget {
             ),
           ),
         ),
-        Divider(),
+        const Divider(),
       ],
     );
   }

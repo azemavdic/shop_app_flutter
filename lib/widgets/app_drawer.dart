@@ -9,29 +9,29 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
-            title: Text('Meni'),
+            title: const Text('Meni'),
             automaticallyImplyLeading: false,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           ListTile(
-            leading: Icon(Icons.shop),
-            title: Text('Pocetna'),
+            leading: const Icon(Icons.shop),
+            title: const Text('Pocetna'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed('/');
             },
           ),
           ListTile(
-            leading: Icon(Icons.payment),
-            title: Text('Narudzbe'),
+            leading: const Icon(Icons.payment),
+            title: const Text('Narudzbe'),
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(OrdersScreen.routeName);
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.dashboard_customize),
-            title: Text('Moji proizvodi'),
+            leading: const Icon(Icons.dashboard_customize),
+            title: const Text('Moji proizvodi'),
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(UserProductsScreen.routeName);

@@ -26,21 +26,21 @@ class CartItem extends StatelessWidget {
         return showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Brisanje artikla'),
-            content:
-                Text('Jeste li sigurni da želite odbaciti artikal iz korpe?'),
+            title: const Text('Brisanje artikla'),
+            content: const Text(
+                'Jeste li sigurni da želite odbaciti artikal iz korpe?'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(true);
                 },
-                child: Text('DA'),
+                child: const Text('DA'),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(false);
                 },
-                child: Text('NE'),
+                child: const Text('NE'),
               ),
             ],
           ),
@@ -51,21 +51,21 @@ class CartItem extends StatelessWidget {
       },
       direction: DismissDirection.endToStart,
       background: Container(
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 4,
         ),
-        child: Icon(
+        alignment: Alignment.centerRight,
+        color: Colors.red,
+        child: const Icon(
           Icons.delete,
           color: Colors.white,
           size: 40,
         ),
-        alignment: Alignment.centerRight,
-        color: Colors.red,
       ),
       key: ValueKey(id),
       child: Card(
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 4,
         ),
@@ -83,7 +83,7 @@ class CartItem extends StatelessWidget {
               ),
             ),
             title: Text(title),
-            subtitle: Text('UKUPNO: ${(price * quantity)} KM'),
+            subtitle: Text('UKUPNO: ${price * quantity} KM'),
             trailing: Text('Kolicina: ${quantity}x'),
           ),
         ),
