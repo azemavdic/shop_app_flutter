@@ -76,7 +76,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
   }
 
-  void _saveForm() {
+  Future<void> _saveForm() async {
     setState(() {
       _isLoading = true;
     });
@@ -93,10 +93,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
       });
       Navigator.of(context).pop();
     } else {
-      Provider.of<Products>(context, listen: false)
-          .addProduct(_editedProduct)
-          .catchError((error) {
-        return showDialog(
+      try {
+        await Provider.of<Products>(context, listen: false)
+            .addProduct(_editedProduct);
+      } catch (e) {
+        await showDialog(
           context: context,
           builder: (context) => AlertDialog(
             title: const Text('Greška.'),
@@ -111,12 +112,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
             ],
           ),
         );
-      }).then((response) {
+      } finally {
         setState(() {
           _isLoading = false;
         });
         Navigator.of(context).pop();
-      });
+      }
     }
   }
 
