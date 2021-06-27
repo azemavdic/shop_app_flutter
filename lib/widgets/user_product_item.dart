@@ -36,8 +36,8 @@ class UserProductItem extends StatelessWidget {
                   icon: const Icon(Icons.edit),
                 ),
                 IconButton(
-                  onPressed: () {
-                    products.deleteProduct(id);
+                  onPressed: () async {
+                    await products.deleteProduct(id);
                   },
                   icon: Icon(
                     Icons.delete,
