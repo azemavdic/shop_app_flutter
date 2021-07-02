@@ -20,10 +20,13 @@ class Product with ChangeNotifier {
     this.isFavorite = false,
   });
 
-  Future<void> toogleFavorite() async {
+  Future<void> toogleFavorite(String token, String userId) async {
     final url = Uri.parse(
-        'https://flutter-shop-app-cfef3-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json');
-    await http.patch(url, body: json.encode({'isFavorite': !isFavorite}));
+        'https://flutter-shop-app-cfef3-default-rtdb.europe-west1.firebasedatabase.app/userFavorites/$userId/$id.json?auth=$token');
+    await http.put(
+      url,
+      body: json.encode(!isFavorite),
+    );
     isFavorite = !isFavorite;
     notifyListeners();
   }

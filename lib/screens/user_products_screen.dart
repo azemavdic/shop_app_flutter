@@ -27,7 +27,8 @@ class UserProductsScreen extends StatelessWidget {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          await Provider.of<Products>(context, listen: false).fetchProducts();
+          await Provider.of<Products>(context, listen: false)
+              .fetchProducts(true);
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),

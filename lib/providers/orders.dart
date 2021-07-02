@@ -6,7 +6,10 @@ import 'package:shop_app/models/order_item.dart';
 import 'package:http/http.dart' as http;
 
 class Orders with ChangeNotifier {
+  Orders(this.authToken, this._orders);
+
   List<OrderItem> _orders = [];
+  final String authToken;
 
   List<OrderItem> get orders {
     return [..._orders];
@@ -14,7 +17,7 @@ class Orders with ChangeNotifier {
 
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     final url = Uri.parse(
-        'https://flutter-shop-app-cfef3-default-rtdb.europe-west1.firebasedatabase.app/orders.json');
+        'https://flutter-shop-app-cfef3-default-rtdb.europe-west1.firebasedatabase.app/orders.json?auth=$authToken');
     final timeStamp = DateTime.now();
     try {
       final response = await http.post(url,
@@ -48,14 +51,14 @@ class Orders with ChangeNotifier {
 
   Future<void> fetchOrders() async {
     final url = Uri.parse(
-        'https://flutter-shop-app-cfef3-default-rtdb.europe-west1.firebasedatabase.app/orders.json');
+        'https://flutter-shop-app-cfef3-default-rtdb.europe-west1.firebasedatabase.app/orders.json?auth=$authToken');
     final response = await http.get(url);
     final extractedData = jsonDecode(response.body) as Map<String, dynamic>;
     final List<OrderItem> loadedOrders = [];
     if (extractedData == null) {
       return;
     }
-    extractedData.forEach((orderId, orderData) {
+    extractedData.forEach((String orderId, orderData) {
       loadedOrders.add(
         OrderItem(
           id: orderId,

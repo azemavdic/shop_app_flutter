@@ -23,34 +23,48 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => Products(),
+          create: (context) => Auth(),
+        ),
+        ChangeNotifierProxyProvider<Auth, Products>(
+          create: (context) => Products('', [], ''),
+          update: (context, auth, previous) => Products(
+            auth.token,
+            previous == null ? [] : previous.items,
+            auth.userId,
+          ),
         ),
         ChangeNotifierProvider(
           create: (context) => Cart(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => Orders(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => Auth(),
+        ChangeNotifierProxyProvider<Auth, Orders>(
+          create: (context) => Orders('', []),
+          update: (context, auth, previous) => Orders(
+            auth.token,
+            previous == null ? [] : previous.orders,
+          ),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.deepOrange,
-          accentColor: Colors.lightBlue,
-          fontFamily: 'Lato',
-        ),
-        home: AuthScreen(),
-        routes: {
-          ProductOverviewScreen.routeName: (context) => ProductOverviewScreen(),
-          ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
-          CartScreen.routeName: (context) => CartScreen(),
-          OrdersScreen.routeName: (context) => OrdersScreen(),
-          UserProductsScreen.routeName: (context) => UserProductsScreen(),
-          EditProductScreen.routeName: (context) => EditProductScreen(),
+      child: Consumer<Auth>(
+        builder: (context, auth, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              primarySwatch: Colors.deepOrange,
+              accentColor: Colors.lightBlue,
+              fontFamily: 'Lato',
+            ),
+            home: auth.isAuth ? ProductOverviewScreen() : AuthScreen(),
+            routes: {
+              ProductOverviewScreen.routeName: (context) =>
+                  ProductOverviewScreen(),
+              ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
+              CartScreen.routeName: (context) => CartScreen(),
+              OrdersScreen.routeName: (context) => OrdersScreen(),
+              UserProductsScreen.routeName: (context) => UserProductsScreen(),
+              EditProductScreen.routeName: (context) => EditProductScreen(),
+            },
+          );
         },
       ),
     );

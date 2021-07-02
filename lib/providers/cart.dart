@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:shop_app/models/cart_item.dart';
 
 class Cart with ChangeNotifier {
-  final Map<String, CartItem> _items = {};
+  // ignore: prefer_final_fields
+  Map<String, CartItem> _items = {};
 
   Map<String, CartItem> get items {
     return {..._items};
